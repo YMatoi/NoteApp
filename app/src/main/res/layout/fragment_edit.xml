@@ -68,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/memo"
+                    android:gravity="top"
                     android:inputType="textMultiLine"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
