@@ -1,5 +1,6 @@
 package com.github.ymatoi.note.database
 
+import android.text.format.DateFormat
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,4 +12,7 @@ data class Note(
     @ColumnInfo(name = "created_at") val createdAt: Calendar
 ) {
     @PrimaryKey(autoGenerate = true) var id: Int? = null
+
+    val dateText
+        get() = DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", createdAt).toString()
 }

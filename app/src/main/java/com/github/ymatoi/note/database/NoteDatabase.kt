@@ -6,6 +6,6 @@ import androidx.room.TypeConverters
 
 @Database(entities = [Note::class], version = 1)
 @TypeConverters(CalendarConverter::class)
-abstract class Database : RoomDatabase() {
+abstract class NoteDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
 }

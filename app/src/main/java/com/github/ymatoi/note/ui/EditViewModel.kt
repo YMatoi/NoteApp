@@ -7,15 +7,15 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
-import com.github.ymatoi.note.database.Database
 import com.github.ymatoi.note.database.Note
+import com.github.ymatoi.note.database.NoteDatabase
 import java.util.Calendar
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class EditViewModel : ViewModel(), KoinComponent {
-    private val database: Database by inject()
+    private val database: NoteDatabase by inject()
     private val createdAt = MutableLiveData<Calendar>(Calendar.getInstance())
     val date = Transformations.map(createdAt) { DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", it) }
     val text = MutableLiveData<String>()
