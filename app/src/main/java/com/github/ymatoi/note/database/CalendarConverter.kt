@@ -1,7 +1,7 @@
 package com.github.ymatoi.note.database
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Calendar
 
 class CalendarConverter {
     @TypeConverter
