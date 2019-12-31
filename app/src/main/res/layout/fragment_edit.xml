@@ -39,7 +39,7 @@
                 android:layout_margin="@dimen/margin_l"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" >
+                app:layout_constraintEnd_toStartOf="@+id/time_input_layout" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/date_input_text"
@@ -49,6 +49,28 @@
                     android:inputType="date"
                     android:maxLines="1"
                     android:text="@{viewModel.date}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/time_input_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_l"
+                app:layout_constraintTop_toTopOf="@id/date_input_layout"
+                app:layout_constraintBottom_toBottomOf="@id/date_input_layout"
+                app:layout_constraintStart_toEndOf="@id/date_input_layout"
+                app:layout_constraintEnd_toEndOf="parent" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/time_input_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/time"
+                    android:inputType="time"
+                    android:maxLines="1"
+                    android:text="@{viewModel.time}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
             </com.google.android.material.textfield.TextInputLayout>

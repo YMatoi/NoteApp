@@ -17,7 +17,8 @@ import org.koin.core.inject
 class EditViewModel : ViewModel(), KoinComponent {
     private val database: NoteDatabase by inject()
     private val recordedAt = MutableLiveData<Calendar>(Calendar.getInstance())
-    val date = Transformations.map(recordedAt) { DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", it) }
+    val date = Transformations.map(recordedAt) { DateFormat.format("yyyy/MM/dd (E)", it) }
+    val time = Transformations.map(recordedAt) { DateFormat.format("kk:mm", it) }
     val text = MutableLiveData<String>()
 
     fun saveNote(view: View) {
