@@ -9,10 +9,10 @@ import java.util.Calendar
 @Entity
 data class Note(
     @ColumnInfo(name = "text") val text: String?,
-    @ColumnInfo(name = "created_at") val createdAt: Calendar
+    @ColumnInfo(name = "recorded_at") val recordedAt: Calendar
 ) {
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 
     val dateText
-        get() = DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", createdAt).toString()
+        get() = DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", recordedAt).toString()
 }

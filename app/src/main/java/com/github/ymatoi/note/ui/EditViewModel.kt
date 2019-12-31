@@ -16,16 +16,15 @@ import org.koin.core.inject
 
 class EditViewModel : ViewModel(), KoinComponent {
     private val database: NoteDatabase by inject()
-    private val createdAt = MutableLiveData<Calendar>(Calendar.getInstance())
-    val date = Transformations.map(createdAt) { DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", it) }
+    private val recordedAt = MutableLiveData<Calendar>(Calendar.getInstance())
+    val date = Transformations.map(recordedAt) { DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", it) }
     val text = MutableLiveData<String>()
 
     fun saveNote(view: View) {
-        val createdAt = createdAt.value ?: return
+        val recordedAt = recordedAt.value ?: return
         val text = text.value ?: return
         val note = Note(
-
-            createdAt = createdAt,
+            recordedAt = recordedAt,
             text = text
         )
         viewModelScope.launch {
