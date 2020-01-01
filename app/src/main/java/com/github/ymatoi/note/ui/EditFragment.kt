@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.github.ymatoi.note.databinding.FragmentEditBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,6 +18,7 @@ class EditFragment : Fragment() {
 
     private val viewModel: EditViewModel by viewModel()
     private lateinit var binding: FragmentEditBinding
+    private val args: EditFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,5 +37,7 @@ class EditFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        viewModel.editMode(args.note)
     }
 }

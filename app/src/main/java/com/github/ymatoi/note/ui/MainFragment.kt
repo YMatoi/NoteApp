@@ -10,10 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.ymatoi.note.R
+import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), NotesController.Listener {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -21,7 +22,7 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: FragmentMainBinding
-    private val controller = NotesController()
+    private val controller = NotesController(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,5 +49,10 @@ class MainFragment : Fragment() {
             it ?: return@Observer
             controller.setData(it)
         })
+    }
+
+    override fun onNoteClick(note: Note) {
+        val action = MainFragmentDirections.actionMainFragmentToEditFragment(note)
+        findNavController().navigate(action)
     }
 }

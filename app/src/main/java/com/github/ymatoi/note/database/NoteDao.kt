@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface NoteDao {
@@ -12,4 +13,7 @@ interface NoteDao {
 
     @Insert
     suspend fun insert(vararg notes: Note)
+
+    @Update
+    suspend fun update(note: Note)
 }

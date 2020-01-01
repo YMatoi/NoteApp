@@ -21,16 +21,30 @@ class EditViewModel : ViewModel(), KoinComponent {
     val time = Transformations.map(recordedAt) { DateFormat.format("kk:mm", it) }
     val text = MutableLiveData<String>()
 
+    private var note: Note? = null
+
     fun saveNote(view: View) {
         val recordedAt = recordedAt.value ?: return
         val text = text.value ?: return
         val note = Note(
+            id = note?.id,
             recordedAt = recordedAt,
             text = text
         )
         viewModelScope.launch {
-            database.noteDao().insert(note)
+            if (note.id == null) {
+                database.noteDao().insert(note)
+            } else {
+                database.noteDao().update(note)
+            }
             Navigation.findNavController(view).popBackStack()
         }
+    }
+
+    fun editMode(note: Note?) {
+        note ?: return
+        recordedAt.postValue(note.recordedAt)
+        text.postValue(note.text)
+        this.note = note
     }
 }

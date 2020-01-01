@@ -14,5 +14,11 @@
     <fragment
         android:id="@+id/editFragment"
         android:name="com.github.ymatoi.note.ui.EditFragment"
-        android:label="EditFragment" />
+        android:label="EditFragment" >
+        <argument
+            android:name="note"
+            app:argType="com.github.ymatoi.note.database.Note"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
