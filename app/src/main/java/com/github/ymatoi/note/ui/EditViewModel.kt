@@ -21,13 +21,20 @@ class EditViewModel : ViewModel(), KoinComponent {
     val time = Transformations.map(recordedAt) { DateFormat.format("kk:mm", it) }
     val text = MutableLiveData<String>()
 
-    private var note: Note? = null
+    private val note = MutableLiveData<Note>()
+    val deleteButtonVisibility = Transformations.map(note) {
+        when (it != null) {
+            true -> View.VISIBLE
+            else -> View.GONE
+        }
+    }
+    private fun getNote() = note.value
 
     fun saveNote(view: View) {
         val recordedAt = recordedAt.value ?: return
         val text = text.value ?: return
         val note = Note(
-            id = note?.id,
+            id = getNote()?.id,
             recordedAt = recordedAt,
             text = text
         )
@@ -45,6 +52,14 @@ class EditViewModel : ViewModel(), KoinComponent {
         note ?: return
         recordedAt.postValue(note.recordedAt)
         text.postValue(note.text)
-        this.note = note
+        this.note.postValue(note)
+    }
+
+    fun deleteNote(view: View) {
+        val note = getNote() ?: return
+        viewModelScope.launch {
+            database.noteDao().delete(note)
+            Navigation.findNavController(view).popBackStack()
+        }
     }
 }

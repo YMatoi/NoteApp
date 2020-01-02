@@ -4,5 +4,6 @@
     <string name="date">日付</string>
     <string name="time">時間</string>
     <string name="save">保存</string>
+    <string name="delete">削除</string>
     <string name="memo">メモ</string>
 </resources>
