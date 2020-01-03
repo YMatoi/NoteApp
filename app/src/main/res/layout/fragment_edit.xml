@@ -116,7 +116,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_l"
                 android:text="@string/delete"
-                android:onClick="@{viewModel::deleteNote}"
                 app:layout_constraintEnd_toStartOf="@id/save_button"
                 app:layout_constraintTop_toTopOf="@id/save_button"
                 app:layout_constraintBottom_toBottomOf="@id/save_button" />

@@ -39,5 +39,14 @@ class EditFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.editMode(args.note)
+
+        binding.deleteButton.setOnClickListener {
+            val fm = fragmentManager ?: return@setOnClickListener
+            DeleteConfirmDialog().apply {
+                onPositiveButtonListener = { _, _ ->
+                    viewModel.deleteNote(it)
+                }
+            }.show(fm, DeleteConfirmDialog.TAG)
+        }
     }
 }
