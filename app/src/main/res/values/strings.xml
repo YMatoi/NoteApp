@@ -5,5 +5,8 @@
     <string name="time">時間</string>
     <string name="save">保存</string>
     <string name="delete">削除</string>
+    <string name="cancel">キャンセル</string>
     <string name="memo">メモ</string>
+
+    <string name="confirm_delete_dialog_message">削除しますか</string>
 </resources>
