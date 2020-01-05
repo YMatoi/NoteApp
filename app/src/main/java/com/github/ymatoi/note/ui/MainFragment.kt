@@ -65,5 +65,6 @@ class MainFragment : Fragment(), NotesController.Listener {
     }
 
     override fun onTitleClick() {
+        DatePickerDialogFragment().show(fragmentManager!!, "DatePickerDialogFragment")
     }
 }
