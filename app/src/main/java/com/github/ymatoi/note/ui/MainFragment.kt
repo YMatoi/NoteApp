@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
+import com.github.ymatoi.note.util.parseFromDateText
+import java.util.Calendar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(), NotesController.Listener {
@@ -24,6 +26,8 @@ class MainFragment : Fragment(), NotesController.Listener {
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: FragmentMainBinding
     private val controller = NotesController(this)
+
+    private var allDates: Array<String> = emptyArray()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +54,11 @@ class MainFragment : Fragment(), NotesController.Listener {
             it ?: return@Observer
             controller.setData(it.first, it.second)
         })
+
+        viewModel.allDates.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
+            allDates = it.toTypedArray()
+        })
     }
 
     override fun onNoteClick(note: Note) {
@@ -66,7 +75,15 @@ class MainFragment : Fragment(), NotesController.Listener {
     }
 
     override fun onTitleClick() {
-        DatePickerDialogFragment().show(fragmentManager!!, "DatePickerDialogFragment")
+        DatePickerDialogFragment().apply {
+            val allDates = allDates
+            arguments = DatePickerDialogFragmentArgs(allDates).toBundle()
+            onPositiveButtonClickListener = { index ->
+                val dateText = allDates[index]
+                val selectedCalendar = Calendar.getInstance().parseFromDateText(dateText)
+                viewModel.set(selectedCalendar)
+            }
+        }.show(fragmentManager!!, "DatePickerDialogFragment")
     }
 
     override fun onShareButtonClick() {

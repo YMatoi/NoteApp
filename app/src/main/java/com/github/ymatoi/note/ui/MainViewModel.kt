@@ -32,6 +32,11 @@ class MainViewModel : ViewModel(), KoinComponent {
         database.noteDao().get(from, to)
     }
 
+    private val allNotes = database.noteDao().getAll()
+    val allDates = Transformations.map(allNotes) {
+        it.map { it.recordedAt.dateText() }.distinct()
+    }
+
     val data = combine(dateText, notes) { dateText, notes ->
         Pair(dateText, notes)
     }
@@ -44,6 +49,8 @@ class MainViewModel : ViewModel(), KoinComponent {
             setNextDate()
         }
     )
+
+    fun set(calendar: Calendar) = this.calendar.postValue(calendar)
 
     fun prev() = calendar.postValue(
         calendar.value?.apply {
