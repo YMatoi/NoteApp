@@ -6,6 +6,7 @@ import com.airbnb.epoxy.Typed2EpoxyController
 import com.github.ymatoi.note.NoteBindingModel_
 import com.github.ymatoi.note.NotesHeaderBindingModel_
 import com.github.ymatoi.note.R
+import com.github.ymatoi.note.ShareButtonBindingModel_
 import com.github.ymatoi.note.database.Note
 
 class NotesController(private val listener: Listener) : Typed2EpoxyController<String, List<Note>>() {
@@ -14,6 +15,7 @@ class NotesController(private val listener: Listener) : Typed2EpoxyController<St
         fun onNextClick()
         fun onPrevClick()
         fun onTitleClick()
+        fun onShareButtonClick()
     }
 
     override fun buildModels(dateText: String, data: List<Note>?) {
@@ -50,5 +52,14 @@ class NotesController(private val listener: Listener) : Typed2EpoxyController<St
                 }
                 .addTo(this)
         }
+
+        ShareButtonBindingModel_()
+            .id("share_button")
+            .onBind { model, view, position ->
+                view.dataBinding.root.setOnClickListener {
+                    listener.onShareButtonClick()
+                }
+            }
+            .addTo(this)
     }
 }
