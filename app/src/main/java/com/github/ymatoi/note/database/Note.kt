@@ -1,10 +1,10 @@
 package com.github.ymatoi.note.database
 
 import android.os.Parcelable
-import android.text.format.DateFormat
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.github.ymatoi.note.util.dateTimeText
 import java.util.Calendar
 import kotlinx.android.parcel.Parcelize
 
@@ -16,7 +16,7 @@ data class Note(
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 ) : Parcelable {
     val dateTimeText
-        get() = DateFormat.format("yyyy/MM/dd (E) kk:mm", recordedAt).toString()
+        get() = recordedAt.dateTimeText()
 
     val textNote
         get() = "> %s \n %s".format(dateTimeText, text)

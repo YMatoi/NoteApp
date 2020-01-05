@@ -1,6 +1,5 @@
 package com.github.ymatoi.note.ui
 
-import android.text.format.DateFormat
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -9,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.database.NoteDatabase
+import com.github.ymatoi.note.util.dateText
+import com.github.ymatoi.note.util.timeText
 import java.util.Calendar
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -18,8 +19,8 @@ class EditViewModel : ViewModel(), KoinComponent {
     private val database: NoteDatabase by inject()
     private val recordedAt = MutableLiveData<Calendar>(Calendar.getInstance())
     fun getRecordedAt() = recordedAt.value ?: Calendar.getInstance()
-    val date = Transformations.map(recordedAt) { DateFormat.format("yyyy/MM/dd (E)", it) }
-    val time = Transformations.map(recordedAt) { DateFormat.format("kk:mm", it) }
+    val date = Transformations.map(recordedAt) { it.dateText() }
+    val time = Transformations.map(recordedAt) { it.timeText() }
     val text = MutableLiveData<String>()
 
     private val note = MutableLiveData<Note>()
