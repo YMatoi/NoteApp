@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -70,6 +70,12 @@ class MainFragment : Fragment(), NotesController.Listener {
     }
 
     override fun onShareButtonClick() {
-        Toast.makeText(context, "share", Toast.LENGTH_LONG).show()
+
+        val builder = ShareCompat.IntentBuilder.from(activity)
+        builder
+            .setSubject(viewModel.getDateText())
+            .setText(viewModel.getTextNotes())
+            .setType("plain/text")
+            .startChooser()
     }
 }

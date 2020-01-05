@@ -18,6 +18,6 @@ data class Note(
     val dateTimeText
         get() = DateFormat.format("yyyy/MM/dd (E) kk:mm", recordedAt).toString()
 
-    val dateText
-        get() = DateFormat.format("yyyy/MM/dd (E)", recordedAt).toString()
+    val textNote
+        get() = "> %s \n %s".format(dateTimeText, text)
 }

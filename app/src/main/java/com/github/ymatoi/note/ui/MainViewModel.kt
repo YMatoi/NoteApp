@@ -38,6 +38,9 @@ class MainViewModel : ViewModel(), KoinComponent {
         Pair(dateText, notes)
     }
 
+    fun getDateText(): String? = dateText.value
+    fun getTextNotes(): String? = notes.value?.map { it.textNote }?.joinToString("\n\n")
+
     fun next() = calendar.postValue(
         calendar.value?.apply {
             setNextDate()
