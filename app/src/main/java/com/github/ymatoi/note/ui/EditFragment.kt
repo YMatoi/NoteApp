@@ -1,13 +1,18 @@
 package com.github.ymatoi.note.ui
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.ymatoi.note.databinding.FragmentEditBinding
+import java.util.Calendar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditFragment : Fragment() {
@@ -47,6 +52,27 @@ class EditFragment : Fragment() {
                     viewModel.deleteNote(it)
                 }
             }.show(fm, DeleteConfirmDialog.TAG)
+        }
+
+        binding.dateInputText.setOnClickListener {
+            val calendar = viewModel.getRecordedAt() ?: Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val date = calendar.get(Calendar.DATE)
+
+            DatePickerDialog(context!!, { view: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
+                viewModel.setDate(year, month, date)
+            }, year, month, date).show()
+        }
+
+        binding.timeInputText.setOnClickListener {
+            val calendar = viewModel.getRecordedAt() ?: Calendar.getInstance()
+            val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            TimePickerDialog(context!!, { view: TimePicker?, hourOfDay: Int, minute: Int ->
+                viewModel.setTime(hourOfDay, minute)
+            }, hourOfDay, minute, true).show()
         }
     }
 }

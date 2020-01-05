@@ -48,6 +48,7 @@
                     android:hint="@string/date"
                     android:inputType="date"
                     android:maxLines="1"
+                    android:focusable="false"
                     android:text="@{viewModel.date}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
@@ -70,6 +71,7 @@
                     android:hint="@string/time"
                     android:inputType="time"
                     android:maxLines="1"
+                    android:focusable="false"
                     android:text="@{viewModel.time}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
