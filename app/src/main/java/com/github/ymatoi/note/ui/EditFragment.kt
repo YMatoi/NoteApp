@@ -55,18 +55,18 @@ class EditFragment : Fragment() {
         }
 
         binding.dateInputText.setOnClickListener {
-            val calendar = viewModel.getRecordedAt() ?: Calendar.getInstance()
+            val calendar = viewModel.getRecordedAt()
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val date = calendar.get(Calendar.DATE)
 
-            DatePickerDialog(context!!, { view: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
+            DatePickerDialog(context!!, { view: DatePicker?, year: Int, month: Int, date: Int ->
                 viewModel.setDate(year, month, date)
             }, year, month, date).show()
         }
 
         binding.timeInputText.setOnClickListener {
-            val calendar = viewModel.getRecordedAt() ?: Calendar.getInstance()
+            val calendar = viewModel.getRecordedAt()
             val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
