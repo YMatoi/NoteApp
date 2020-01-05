@@ -45,14 +45,25 @@ class MainFragment : Fragment(), NotesController.Listener {
         binding.notes.adapter = controller.adapter
         binding.notes.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        viewModel.notes.observe(viewLifecycleOwner, Observer {
+        viewModel.data.observe(viewLifecycleOwner, Observer {
             it ?: return@Observer
-            controller.setData(it)
+            controller.setData(it.first, it.second)
         })
     }
 
     override fun onNoteClick(note: Note) {
         val action = MainFragmentDirections.actionMainFragmentToEditFragment(note)
         findNavController().navigate(action)
+    }
+
+    override fun onNextClick() {
+        viewModel.next()
+    }
+
+    override fun onPrevClick() {
+        viewModel.prev()
+    }
+
+    override fun onTitleClick() {
     }
 }

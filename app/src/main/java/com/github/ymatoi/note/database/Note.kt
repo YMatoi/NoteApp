@@ -15,6 +15,9 @@ data class Note(
     @ColumnInfo(name = "recorded_at") var recordedAt: Calendar,
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 ) : Parcelable {
+    val dateTimeText
+        get() = DateFormat.format("yyyy/MM/dd (E) kk:mm", recordedAt).toString()
+
     val dateText
-        get() = DateFormat.format("yyyy/MM/dd (E) kk:mm:ss", recordedAt).toString()
+        get() = DateFormat.format("yyyy/MM/dd (E)", recordedAt).toString()
 }
