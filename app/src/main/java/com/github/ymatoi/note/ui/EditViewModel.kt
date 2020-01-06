@@ -51,10 +51,10 @@ class EditViewModel : ViewModel(), KoinComponent {
     }
 
     fun editMode(note: Note?) {
+        this.note.postValue(note)
         note ?: return
         recordedAt.postValue(note.recordedAt)
         text.postValue(note.text)
-        this.note.postValue(note)
     }
 
     fun deleteNote(view: View) {
