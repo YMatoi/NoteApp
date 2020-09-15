@@ -27,8 +27,6 @@ class MainFragment : Fragment(), NotesController.Listener {
     private lateinit var binding: FragmentMainBinding
     private val controller = NotesController(this)
 
-    private var allDates: Array<String> = emptyArray()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,49 +48,13 @@ class MainFragment : Fragment(), NotesController.Listener {
         binding.notes.adapter = controller.adapter
         binding.notes.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        viewModel.data.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            controller.setData(it.first, it.second)
-        })
-
-        viewModel.allDates.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            allDates = it.toTypedArray()
+        viewModel.notes.observe(viewLifecycleOwner, Observer {
+            controller.notes = it
         })
     }
 
     override fun onNoteClick(note: Note) {
         val action = MainFragmentDirections.actionMainFragmentToEditFragment(note)
         findNavController().navigate(action)
-    }
-
-    override fun onNextClick() {
-        viewModel.next()
-    }
-
-    override fun onPrevClick() {
-        viewModel.prev()
-    }
-
-    override fun onTitleClick() {
-        DatePickerDialogFragment().apply {
-            val allDates = allDates
-            arguments = DatePickerDialogFragmentArgs(allDates).toBundle()
-            onPositiveButtonClickListener = { index ->
-                val dateText = allDates[index]
-                val selectedCalendar = Calendar.getInstance().parseFromDateText(dateText)
-                viewModel.set(selectedCalendar)
-            }
-        }.show(requireFragmentManager(), "DatePickerDialogFragment")
-    }
-
-    override fun onShareButtonClick() {
-
-        val builder = ShareCompat.IntentBuilder.from(requireActivity())
-        builder
-            .setSubject(viewModel.getDateText())
-            .setText(viewModel.getTextNotes())
-            .setType("plain/text")
-            .startChooser()
     }
 }

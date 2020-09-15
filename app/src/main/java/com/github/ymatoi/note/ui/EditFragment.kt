@@ -60,7 +60,7 @@ class EditFragment : Fragment() {
             val month = calendar.get(Calendar.MONTH)
             val date = calendar.get(Calendar.DATE)
 
-            DatePickerDialog(context!!, { view: DatePicker?, year: Int, month: Int, date: Int ->
+            DatePickerDialog(requireContext(), { view: DatePicker?, year: Int, month: Int, date: Int ->
                 viewModel.setDate(year, month, date)
             }, year, month, date).show()
         }
@@ -70,7 +70,7 @@ class EditFragment : Fragment() {
             val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
-            TimePickerDialog(context!!, { view: TimePicker?, hourOfDay: Int, minute: Int ->
+            TimePickerDialog(requireContext(), { view: TimePicker?, hourOfDay: Int, minute: Int ->
                 viewModel.setTime(hourOfDay, minute)
             }, hourOfDay, minute, true).show()
         }
