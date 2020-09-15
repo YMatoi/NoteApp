@@ -83,12 +83,12 @@ class MainFragment : Fragment(), NotesController.Listener {
                 val selectedCalendar = Calendar.getInstance().parseFromDateText(dateText)
                 viewModel.set(selectedCalendar)
             }
-        }.show(fragmentManager!!, "DatePickerDialogFragment")
+        }.show(requireFragmentManager(), "DatePickerDialogFragment")
     }
 
     override fun onShareButtonClick() {
 
-        val builder = ShareCompat.IntentBuilder.from(activity)
+        val builder = ShareCompat.IntentBuilder.from(requireActivity())
         builder
             .setSubject(viewModel.getDateText())
             .setText(viewModel.getTextNotes())
