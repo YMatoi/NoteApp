@@ -15,7 +15,6 @@ class NotesController(private val listener: Listener) : EpoxyController() {
             requestModelBuild()
         }
 
-
     override fun buildModels() {
         notes.forEach { note ->
             note {

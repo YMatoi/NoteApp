@@ -14,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import com.github.ymatoi.note.databinding.FragmentEditBinding
 import java.util.Calendar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.concurrent.fixedRateTimer
 
 class EditFragment : Fragment() {
 
@@ -47,7 +46,7 @@ class EditFragment : Fragment() {
         viewModel.editMode(args.note)
 
         binding.deleteButton.setOnClickListener {
-            DeleteConfirmDialog{ _, _ ->
+            DeleteConfirmDialog { _, _ ->
                 viewModel.deleteNote(it)
             }.show(parentFragmentManager, DeleteConfirmDialog.TAG)
         }
