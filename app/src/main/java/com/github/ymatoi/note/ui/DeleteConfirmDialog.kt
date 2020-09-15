@@ -7,12 +7,11 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.github.ymatoi.note.R
 
-class DeleteConfirmDialog : DialogFragment() {
+class DeleteConfirmDialog(
+    var onPositiveButtonListener: DialogInterface.OnClickListener
+) : DialogFragment() {
     companion object {
         const val TAG = "DeleteConfirmDialog"
-    }
-
-    var onPositiveButtonListener = { dialog: DialogInterface, which: Int ->
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

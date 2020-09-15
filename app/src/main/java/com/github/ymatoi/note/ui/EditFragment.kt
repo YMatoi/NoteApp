@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.github.ymatoi.note.databinding.FragmentEditBinding
 import java.util.Calendar
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.concurrent.fixedRateTimer
 
 class EditFragment : Fragment() {
 
@@ -47,10 +48,8 @@ class EditFragment : Fragment() {
 
         binding.deleteButton.setOnClickListener {
             val fm = fragmentManager ?: return@setOnClickListener
-            DeleteConfirmDialog().apply {
-                onPositiveButtonListener = { _, _ ->
-                    viewModel.deleteNote(it)
-                }
+            DeleteConfirmDialog{ _, _ ->
+                viewModel.deleteNote(it)
             }.show(fm, DeleteConfirmDialog.TAG)
         }
 
@@ -60,7 +59,7 @@ class EditFragment : Fragment() {
             val month = calendar.get(Calendar.MONTH)
             val date = calendar.get(Calendar.DATE)
 
-            DatePickerDialog(requireContext(), { view: DatePicker?, year: Int, month: Int, date: Int ->
+            DatePickerDialog(requireContext(), { _: DatePicker?, year: Int, month: Int, date: Int ->
                 viewModel.setDate(year, month, date)
             }, year, month, date).show()
         }
@@ -70,7 +69,7 @@ class EditFragment : Fragment() {
             val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
-            TimePickerDialog(requireContext(), { view: TimePicker?, hourOfDay: Int, minute: Int ->
+            TimePickerDialog(requireContext(), { _: TimePicker?, hourOfDay: Int, minute: Int ->
                 viewModel.setTime(hourOfDay, minute)
             }, hourOfDay, minute, true).show()
         }
