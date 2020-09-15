@@ -47,10 +47,9 @@ class EditFragment : Fragment() {
         viewModel.editMode(args.note)
 
         binding.deleteButton.setOnClickListener {
-            val fm = fragmentManager ?: return@setOnClickListener
             DeleteConfirmDialog{ _, _ ->
                 viewModel.deleteNote(it)
-            }.show(fm, DeleteConfirmDialog.TAG)
+            }.show(parentFragmentManager, DeleteConfirmDialog.TAG)
         }
 
         binding.dateInputText.setOnClickListener {
@@ -59,8 +58,8 @@ class EditFragment : Fragment() {
             val month = calendar.get(Calendar.MONTH)
             val date = calendar.get(Calendar.DATE)
 
-            DatePickerDialog(requireContext(), { _: DatePicker?, year: Int, month: Int, date: Int ->
-                viewModel.setDate(year, month, date)
+            DatePickerDialog(requireContext(), { _: DatePicker?, y: Int, m: Int, d: Int ->
+                viewModel.setDate(y, m, d)
             }, year, month, date).show()
         }
 
@@ -69,8 +68,8 @@ class EditFragment : Fragment() {
             val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
-            TimePickerDialog(requireContext(), { _: TimePicker?, hourOfDay: Int, minute: Int ->
-                viewModel.setTime(hourOfDay, minute)
+            TimePickerDialog(requireContext(), { _: TimePicker?, h: Int, m: Int ->
+                viewModel.setTime(h, m)
             }, hourOfDay, minute, true).show()
         }
     }
