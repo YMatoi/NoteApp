@@ -82,7 +82,7 @@ class EditViewModel : ViewModel(), KoinComponent {
     private val _softwareKeyboardVisibility = MutableLiveData(false)
     fun setSoftwareKeyboardVisibility(visibility: Boolean) = _softwareKeyboardVisibility.postValue(visibility)
     val datetimeVisibility = Transformations.map(_softwareKeyboardVisibility) {
-        when(it) {
+        when (it) {
             true -> View.GONE
             else -> View.VISIBLE
         }

@@ -1,26 +1,19 @@
 package com.github.ymatoi.note.ui
 
-import android.accessibilityservice.AccessibilityService
 import android.app.DatePickerDialog
-import android.app.Service
 import android.app.TimePickerDialog
-import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import android.widget.TimePicker
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.ymatoi.note.databinding.FragmentEditBinding
-import kotlinx.android.synthetic.clearFindViewByIdCache
 import java.util.Calendar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -95,7 +88,7 @@ class EditFragment : Fragment() {
         view.getWindowVisibleDisplayFrame(rect)
         val screenHeight = view.rootView.height
         val keypadHeight = screenHeight - rect.bottom
-        if(keypadHeight > screenHeight * 0.15) {
+        if (keypadHeight > screenHeight * 0.15) {
             viewModel.setSoftwareKeyboardVisibility(true)
         } else {
             viewModel.setSoftwareKeyboardVisibility(false)
