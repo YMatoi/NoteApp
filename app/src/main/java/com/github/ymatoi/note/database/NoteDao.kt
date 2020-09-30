@@ -10,10 +10,10 @@ import java.util.Calendar
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * FROM note ORDER BY recorded_at")
+    @Query("SELECT * FROM note ORDER BY recorded_at DESC")
     fun getAll(): LiveData<List<Note>>
 
-    @Query("SELECT * FROM note WHERE :from <= recorded_at and recorded_at <= :to ORDER BY recorded_at")
+    @Query("SELECT * FROM note WHERE :from <= recorded_at and recorded_at <= :to ORDER BY recorded_at DESC")
     fun get(from: Calendar, to: Calendar): LiveData<List<Note>>
 
     @Insert
