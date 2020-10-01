@@ -4,36 +4,26 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Rect
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.github.ymatoi.note.R
 import com.github.ymatoi.note.databinding.FragmentEditBinding
 import java.util.Calendar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class EditFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = EditFragment()
-    }
-
+class EditFragment : Fragment(R.layout.fragment_edit) {
     private val viewModel: EditViewModel by viewModel()
     private lateinit var binding: FragmentEditBinding
     private val args: EditFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentEditBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentEditBinding.bind(view)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

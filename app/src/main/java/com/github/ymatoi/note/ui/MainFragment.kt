@@ -1,9 +1,7 @@
 package com.github.ymatoi.note.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,23 +12,14 @@ import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment(), NotesController.Listener {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
+class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener {
     private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: FragmentMainBinding
     private val controller = NotesController(this)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMainBinding.bind(view)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
