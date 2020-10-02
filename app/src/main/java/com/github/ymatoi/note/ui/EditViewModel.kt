@@ -17,8 +17,8 @@ import org.koin.core.inject
 
 class EditViewModel : ViewModel(), KoinComponent {
     private val database: NoteDatabase by inject()
-    private val recordedAt = MutableLiveData<Calendar>(Calendar.getInstance())
-    fun getRecordedAt() = recordedAt.value ?: Calendar.getInstance()
+    private val recordedAt = MutableLiveData(Calendar.getInstance())
+    fun getRecordedAt(): Calendar = recordedAt.value ?: Calendar.getInstance()
     val date = Transformations.map(recordedAt) { it.dateText() }
     val time = Transformations.map(recordedAt) { it.timeText() }
     val text = MutableLiveData<String>()
@@ -69,14 +69,14 @@ class EditViewModel : ViewModel(), KoinComponent {
         val next = getRecordedAt().apply {
             set(year, month, date)
         }
-        if (next != null) recordedAt.postValue(next)
+        recordedAt.postValue(next)
     }
     fun setTime(hourOfDay: Int, minute: Int) {
         val next = getRecordedAt().apply {
             set(Calendar.HOUR_OF_DAY, hourOfDay)
             set(Calendar.MINUTE, minute)
         }
-        if (next != null) recordedAt.postValue(next)
+        recordedAt.postValue(next)
     }
 
     private val _softwareKeyboardVisibility = MutableLiveData(false)

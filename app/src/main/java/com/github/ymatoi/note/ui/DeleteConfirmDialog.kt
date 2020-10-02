@@ -8,7 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.github.ymatoi.note.R
 
 class DeleteConfirmDialog(
-    var onPositiveButtonListener: DialogInterface.OnClickListener
+    private var onPositiveButtonListener: DialogInterface.OnClickListener
 ) : DialogFragment() {
     companion object {
         const val TAG = "DeleteConfirmDialog"

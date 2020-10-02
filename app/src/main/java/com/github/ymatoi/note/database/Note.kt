@@ -17,7 +17,4 @@ data class Note(
 ) : Parcelable {
     val dateTimeText
         get() = recordedAt.dateTimeText()
-
-    val textNote
-        get() = "> %s \n %s".format(dateTimeText, text)
 }
