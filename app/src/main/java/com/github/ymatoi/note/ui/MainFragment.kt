@@ -2,6 +2,7 @@ package com.github.ymatoi.note.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -36,6 +37,18 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
 
         viewModel.notes.observe(viewLifecycleOwner, Observer {
             controller.notes = it
+        })
+
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.setQuery(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.setQuery(newText)
+                return false
+            }
         })
     }
 
