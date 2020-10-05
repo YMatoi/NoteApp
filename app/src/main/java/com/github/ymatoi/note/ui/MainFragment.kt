@@ -48,7 +48,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
         })
     }
 
-    override fun onNoteClick(note: Note) {
+    override fun onNoteClick(note: Note) = View.OnClickListener {
         val action = MainFragmentDirections.actionMainFragmentToEditFragment(note)
         findNavController().navigate(action)
     }

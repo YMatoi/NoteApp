@@ -10,12 +10,17 @@
         <variable
             name="text"
             type="String" />
+
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_s"
+        android:onClick="@{onClick}"
         app:cardCornerRadius="@dimen/radius_s"
         app:cardElevation="@dimen/elevation_s">
 

@@ -1,12 +1,13 @@
 package com.github.ymatoi.note.ui
 
+import android.view.View
 import com.airbnb.epoxy.EpoxyController
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.note
 
 class NotesController(private val listener: Listener) : EpoxyController() {
     interface Listener {
-        fun onNoteClick(note: Note)
+        fun onNoteClick(note: Note): View.OnClickListener
     }
 
     var notes: List<Note> = emptyList()
@@ -21,11 +22,7 @@ class NotesController(private val listener: Listener) : EpoxyController() {
                 id(note.id)
                 createdAt(note.dateTimeText)
                 text(note.text)
-                onBind { _, view, _ ->
-                    view.dataBinding.root.setOnClickListener {
-                        listener.onNoteClick(note)
-                    }
-                }
+                onClick(listener.onNoteClick(note))
             }
         }
     }
