@@ -18,12 +18,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditFragment : Fragment(R.layout.fragment_edit) {
     private val viewModel: EditViewModel by viewModel()
-    private lateinit var binding: FragmentEditBinding
+    private var _binding: FragmentEditBinding? = null
+    private val binding get() = _binding!!
     private val args: EditFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentEditBinding.bind(view)
+        _binding = FragmentEditBinding.bind(view)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -79,5 +80,10 @@ class EditFragment : Fragment(R.layout.fragment_edit) {
         } else {
             viewModel.setSoftwareKeyboardVisibility(false)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

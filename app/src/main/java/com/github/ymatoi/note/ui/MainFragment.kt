@@ -15,12 +15,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener {
     private val viewModel: MainViewModel by viewModel()
-    private lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
     private val controller = NotesController(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentMainBinding.bind(view)
+        _binding = FragmentMainBinding.bind(view)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -51,5 +52,10 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
     override fun onNoteClick(note: Note) = View.OnClickListener {
         val action = MainFragmentDirections.actionMainFragmentToEditFragment(note)
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
