@@ -9,15 +9,17 @@ import android.view.ViewTreeObserver
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.databinding.FragmentEditBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class EditFragment : Fragment(R.layout.fragment_edit) {
-    private val viewModel: EditViewModel by viewModel()
+    private val viewModel: EditViewModel by viewModels()
     private var _binding: FragmentEditBinding? = null
     private val binding get() = _binding!!
     private val args: EditFragmentArgs by navArgs()
