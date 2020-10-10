@@ -1,15 +1,14 @@
 package com.github.ymatoi.note.ui
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.github.ymatoi.note.database.NoteDatabase
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class MainViewModel : ViewModel(), KoinComponent {
-    private val database: NoteDatabase by inject()
-
+class MainViewModel @ViewModelInject constructor(
+    private val database: NoteDatabase
+) : ViewModel() {
     private val searchKeyword = MutableLiveData<String?>("")
     fun setQuery(query: String?) = searchKeyword.postValue(query ?: "")
 

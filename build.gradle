@@ -15,6 +15,9 @@ buildscript {
 
         def nav_version = "2.1.0"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+
+        def dagger_hilt = "2.28-alpha"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$dagger_hilt"
     }
 }
 

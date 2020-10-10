@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener {
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModels()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val controller = NotesController(this)

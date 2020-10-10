@@ -1,6 +1,7 @@
 package com.github.ymatoi.note.ui
 
 import android.view.View
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -12,11 +13,10 @@ import com.github.ymatoi.note.util.dateText
 import com.github.ymatoi.note.util.timeText
 import java.util.Calendar
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class EditViewModel : ViewModel(), KoinComponent {
-    private val database: NoteDatabase by inject()
+class EditViewModel @ViewModelInject constructor(
+    private val database: NoteDatabase
+) : ViewModel() {
     private val recordedAt = MutableLiveData(Calendar.getInstance())
     fun getRecordedAt(): Calendar = recordedAt.value ?: Calendar.getInstance()
     val date = Transformations.map(recordedAt) { it.dateText() }
