@@ -18,10 +18,24 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_bar"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_bar"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/account"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/margin_s"
+                    android:src="@drawable/ic_baseline_account_circle_24"/>
+            </LinearLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 

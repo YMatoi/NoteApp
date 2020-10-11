@@ -18,6 +18,8 @@ buildscript {
 
         def dagger_hilt = "2.28-alpha"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$dagger_hilt"
+
+        classpath 'com.google.gms:google-services:4.3.4'
     }
 }
 
