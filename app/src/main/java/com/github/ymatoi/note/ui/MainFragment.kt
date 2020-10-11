@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +24,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val controller = NotesController(this)
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +54,17 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
                 return false
             }
         })
+
+        firebaseAuth = Firebase.auth
+        binding.account.setOnClickListener {
+            val currentUser = firebaseAuth.currentUser
+            if (currentUser == null) {
+                findNavController().navigate(R.id.signInFragment)
+            } else {
+                firebaseAuth.signOut()
+                Snackbar.make(requireView(), "Sign Out", Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onNoteClick(note: Note) = View.OnClickListener {

@@ -10,6 +10,8 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply plugin: 'dagger.hilt.android.plugin'
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.2"
@@ -33,6 +35,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -50,6 +57,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    def activity_version = "1.2.0-beta01"
+    implementation "androidx.activity:activity-ktx:$activity_version"
+
+    def fragment_version = "1.3.0-beta01"
+    // Kotlin
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    // Testing Fragments in Isolation
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"
@@ -86,6 +104,12 @@ dependencies {
     implementation "androidx.hilt:hilt-common:$dagger_hilt_view_model"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$dagger_hilt_view_model"
     kapt "androidx.hilt:hilt-compiler:$dagger_hilt_view_model"
+
+    // For Firebase
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx:19.4.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
 }
 
 configurations {

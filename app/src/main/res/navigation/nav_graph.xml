@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_mainFragment_to_editFragment"
             app:destination="@id/editFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_datePickerDialogFragment"
-            app:destination="@id/datePickerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
@@ -27,11 +24,7 @@
             android:defaultValue="@null" />
     </fragment>
     <fragment
-        android:id="@+id/datePickerDialogFragment"
-        android:name="com.github.ymatoi.note.ui.DatePickerDialogFragment"
-        android:label="DatePickerDialogFragment" >
-        <argument
-            android:name="dates"
-            app:argType="string[]" />
-    </fragment>
+        android:id="@+id/signInFragment"
+        android:name="com.github.ymatoi.note.ui.SignInFragment"
+        android:label="SignInFragment" />
 </navigation>
