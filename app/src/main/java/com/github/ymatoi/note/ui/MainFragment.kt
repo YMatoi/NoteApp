@@ -9,11 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,8 +65,14 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
             } else {
                 firebaseAuth.signOut()
                 Snackbar.make(requireView(), "Sign Out", Snackbar.LENGTH_SHORT).show()
+                setAccountImage(firebaseAuth.currentUser)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setAccountImage(firebaseAuth.currentUser)
     }
 
     override fun onNoteClick(note: Note) = View.OnClickListener {
@@ -75,5 +83,13 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setAccountImage(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            Glide.with(requireContext()).load(currentUser.photoUrl).into(binding.account)
+        } else {
+            Glide.with(requireContext()).load(requireContext().getDrawable(R.drawable.ic_baseline_account_circle_24)).into(binding.account)
+        }
     }
 }
