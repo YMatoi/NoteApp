@@ -6,7 +6,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,9 +41,9 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
         binding.notes.adapter = controller.adapter
         binding.notes.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        viewModel.notes.observe(viewLifecycleOwner, Observer {
+        viewModel.notes.observe(viewLifecycleOwner) {
             controller.notes = it
-        })
+        }
 
         binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
