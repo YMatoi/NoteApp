@@ -3,6 +3,7 @@ package com.github.ymatoi.note.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -89,7 +90,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
         if (currentUser != null) {
             Glide.with(requireContext()).load(currentUser.photoUrl).into(binding.account)
         } else {
-            Glide.with(requireContext()).load(requireContext().getDrawable(R.drawable.ic_baseline_account_circle_24)).into(binding.account)
+            Glide.with(requireContext()).load(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_account_circle_24)).into(binding.account)
         }
     }
 }
