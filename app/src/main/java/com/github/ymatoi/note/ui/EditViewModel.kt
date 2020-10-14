@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.github.ymatoi.note.database.Note
-import com.github.ymatoi.note.database.NoteDatabase
+import com.github.ymatoi.note.repository.NoteRepository
 import com.github.ymatoi.note.util.dateText
 import com.github.ymatoi.note.util.timeText
 import java.util.Calendar
 import kotlinx.coroutines.launch
 
 class EditViewModel @ViewModelInject constructor(
-    private val database: NoteDatabase
+    private val noteRepository: NoteRepository
 ) : ViewModel() {
     private val recordedAt = MutableLiveData(Calendar.getInstance())
     fun getRecordedAt(): Calendar = recordedAt.value ?: Calendar.getInstance()
@@ -42,9 +42,9 @@ class EditViewModel @ViewModelInject constructor(
         )
         viewModelScope.launch {
             if (note.id == null) {
-                database.noteDao().insert(note)
+                noteRepository.insert(note)
             } else {
-                database.noteDao().update(note)
+                noteRepository.update(note)
             }
             Navigation.findNavController(view).popBackStack()
         }
@@ -60,7 +60,7 @@ class EditViewModel @ViewModelInject constructor(
     fun deleteNote(view: View) {
         val note = getNote() ?: return
         viewModelScope.launch {
-            database.noteDao().delete(note)
+            noteRepository.delete(note)
             Navigation.findNavController(view).popBackStack()
         }
     }

@@ -4,19 +4,19 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.github.ymatoi.note.database.NoteDatabase
+import com.github.ymatoi.note.repository.NoteRepository
 
 class MainViewModel @ViewModelInject constructor(
-    private val database: NoteDatabase
+    private val noteRepository: NoteRepository
 ) : ViewModel() {
     private val searchKeyword = MutableLiveData<String?>("")
     fun setQuery(query: String?) = searchKeyword.postValue(query ?: "")
 
     val notes = Transformations.switchMap(searchKeyword) {
         if (it.isNullOrBlank()) {
-            database.noteDao().getAll()
+            noteRepository.getAll()
         } else {
-            database.noteDao().findByText(it)
+            noteRepository.findByText(it)
         }
     }
 }
