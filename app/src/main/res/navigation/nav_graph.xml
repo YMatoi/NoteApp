@@ -27,4 +27,8 @@
         android:id="@+id/signInFragment"
         android:name="com.github.ymatoi.note.ui.SignInFragment"
         android:label="SignInFragment" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.github.ymatoi.note.ui.AccountFragment"
+        android:label="AccountFragment" />
 </navigation>

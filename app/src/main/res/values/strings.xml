@@ -8,6 +8,8 @@
     <string name="cancel">キャンセル</string>
     <string name="memo">メモ</string>
     <string name="ok">決定</string>
+    <string name="sign_in">ログイン</string>
+    <string name="sign_out">ログアウト</string>
 
     <string name="confirm_delete_dialog_message">削除しますか</string>
 </resources>

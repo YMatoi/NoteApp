@@ -75,8 +75,8 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                Snackbar.make(requireView(), "Sign In", Snackbar.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.mainFragment)
+                Snackbar.make(requireView(), resources.getString(R.string.sign_in), Snackbar.LENGTH_SHORT).show()
+                findNavController().popBackStack()
             } else {
                 Timber.e(it.exception)
             }

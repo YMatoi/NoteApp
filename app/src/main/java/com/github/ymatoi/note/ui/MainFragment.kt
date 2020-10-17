@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -63,9 +62,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
             if (currentUser == null) {
                 findNavController().navigate(R.id.signInFragment)
             } else {
-                firebaseAuth.signOut()
-                Snackbar.make(requireView(), "Sign Out", Snackbar.LENGTH_SHORT).show()
-                setAccountImage(firebaseAuth.currentUser)
+                findNavController().navigate(R.id.accountFragment)
             }
         }
     }
