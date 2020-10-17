@@ -20,7 +20,7 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener {
+class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener, SearchView.OnQueryTextListener {
     private val viewModel: MainViewModel by viewModels()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -44,26 +44,18 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
             controller.notes = it
         }
 
-        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.setQuery(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.setQuery(newText)
-                return false
-            }
-        })
+        binding.searchBar.setOnQueryTextListener(this)
 
         firebaseAuth = Firebase.auth
-        binding.account.setOnClickListener {
-            val currentUser = firebaseAuth.currentUser
-            if (currentUser == null) {
-                findNavController().navigate(R.id.signInFragment)
-            } else {
-                findNavController().navigate(R.id.accountFragment)
-            }
+        binding.account.setOnClickListener(accountOnClickListener)
+    }
+
+    private val accountOnClickListener = View.OnClickListener {
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            findNavController().navigate(R.id.signInFragment)
+        } else {
+            findNavController().navigate(R.id.accountFragment)
         }
     }
 
@@ -88,5 +80,15 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener 
         } else {
             Glide.with(requireContext()).load(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_account_circle_24)).into(binding.account)
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        viewModel.setQuery(query)
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        viewModel.setQuery(newText)
+        return false
     }
 }
