@@ -7,4 +7,6 @@
     <dimen name="radius_s">8dp</dimen>
 
     <dimen name="elevation_s">8dp</dimen>
+
+    <dimen name="account_image_size">48dp</dimen>
 </resources>
