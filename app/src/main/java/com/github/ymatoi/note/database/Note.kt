@@ -11,8 +11,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity
 data class Note(
-    @ColumnInfo(name = "text") var text: String?,
-    @ColumnInfo(name = "recorded_at") var recordedAt: Calendar,
+    @ColumnInfo(name = "text") var text: String? = null,
+    @ColumnInfo(name = "recorded_at") var recordedAt: Calendar = Calendar.getInstance(),
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 ) : Parcelable {
     val dateTimeText
