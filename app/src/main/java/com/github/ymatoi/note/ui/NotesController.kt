@@ -19,7 +19,7 @@ class NotesController(private val listener: Listener) : EpoxyController() {
     override fun buildModels() {
         notes.forEach { note ->
             note {
-                id(note.id)
+                id(note.uuid)
                 createdAt(note.dateTimeText)
                 text(note.text)
                 onClick(listener.onNoteClick(note))

@@ -35,16 +35,13 @@ class EditViewModel @ViewModelInject constructor(
     fun saveNote(view: View) {
         val recordedAt = recordedAt.value ?: return
         val text = text.value ?: return
-        val note = Note(
-            id = getNote()?.id,
-            recordedAt = recordedAt,
-            text = text
-        )
+
         viewModelScope.launch {
-            if (note.id == null) {
-                noteRepository.insert(note)
+            val uuid = getNote()?.uuid
+            if (uuid == null) {
+                noteRepository.insert(Note(text, recordedAt))
             } else {
-                noteRepository.update(note)
+                noteRepository.update(Note(text, recordedAt, uuid))
             }
             Navigation.findNavController(view).popBackStack()
         }
