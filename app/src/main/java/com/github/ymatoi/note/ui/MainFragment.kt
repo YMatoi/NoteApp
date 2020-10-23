@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
@@ -76,9 +76,9 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener,
 
     private fun setAccountImage(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            Glide.with(requireContext()).load(currentUser.photoUrl).into(binding.account)
+            binding.account.load(currentUser.photoUrl)
         } else {
-            Glide.with(requireContext()).load(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_account_circle_24)).into(binding.account)
+            binding.account.load(ContextCompat.getDrawable(requireContext(), R.drawable.ic_baseline_account_circle_24))
         }
     }
 
