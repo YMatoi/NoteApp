@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.database.NoteDatabase
+import com.github.ymatoi.note.util.combine
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -18,7 +19,8 @@ class NoteRepository @Inject constructor(
     private val _notes = MutableLiveData<List<Note>>()
     private fun getAllFromFirestore(): LiveData<List<Note>> = _notes.also {
         collection?.get()?.addOnSuccessListener {
-            _notes.postValue(it.toObjects(Note::class.java))
+            val notes = it.toObjects(Note::class.java).sortedBy { it.recordedAt }.reversed()
+            _notes.postValue(notes)
         }
     }
     fun getAll() = when (currentUser == null) {
@@ -26,14 +28,37 @@ class NoteRepository @Inject constructor(
         false -> getAllFromFirestore()
     }
 
-    fun findByText(query: String) = database.noteDao().findByText(query)
-    suspend fun insert(note: Note) = database.noteDao().insert(note).also {
-        collection?.document(note.uuid)?.set(note)
+    private val _query = MutableLiveData<String>()
+    private val _searchedText = combine(_query, _notes) { query, notes ->
+        notes?.filter { when (query) {
+            null -> true
+            else -> it.text.contains(Regex.fromLiteral(query))
+        } }?.sortedBy { it.recordedAt }?.reversed()
     }
-    suspend fun update(note: Note) = database.noteDao().update(note).also {
-        collection?.document(note.uuid)?.set(note)
+    private fun findByTextFirestore(query: String) = _searchedText.also {
+        _query.postValue(query)
     }
-    suspend fun delete(note: Note) = database.noteDao().delete(note).also {
-        collection?.document(note.uuid)?.delete()
+    fun findByText(query: String) = when (currentUser == null) {
+        true -> database.noteDao().findByText(query)
+        false -> findByTextFirestore(query)
+    }
+
+    suspend fun insert(note: Note) {
+        when (currentUser == null) {
+            true -> database.noteDao().insert(note)
+            false -> collection?.document(note.uuid)?.set(note)
+        }
+    }
+    suspend fun update(note: Note) {
+        when (currentUser == null) {
+            true -> database.noteDao().update(note)
+            false -> collection?.document(note.uuid)?.set(note)
+        }
+    }
+    suspend fun delete(note: Note) {
+        when (currentUser == null) {
+            true -> database.noteDao().delete(note)
+            false -> collection?.document(note.uuid)?.delete()
+        }
     }
 }
