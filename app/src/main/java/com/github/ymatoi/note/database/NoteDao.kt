@@ -12,7 +12,7 @@ interface NoteDao {
     @Query("SELECT * FROM note ORDER BY recorded_at DESC")
     fun getAll(): LiveData<List<Note>>
 
-    @Query("SELECT * FROM note WHERE text LIKE '%' || :query || '%' ")
+    @Query("SELECT * FROM note WHERE text LIKE '%' || :query || '%' ORDER BY recorded_at DESC")
     fun findByText(query: String): LiveData<List<Note>>
 
     @Insert
