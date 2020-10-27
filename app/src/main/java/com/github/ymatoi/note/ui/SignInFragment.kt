@@ -54,6 +54,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             signIn()
         }
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         auth = Firebase.auth
     }
 
