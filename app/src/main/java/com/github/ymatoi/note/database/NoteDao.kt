@@ -16,7 +16,7 @@ interface NoteDao {
     fun findByText(query: String): LiveData<List<Note>>
 
     @Insert
-    suspend fun insert(vararg notes: Note)
+    suspend fun insert(note: Note)
 
     @Update
     suspend fun update(note: Note)

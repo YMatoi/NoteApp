@@ -2,18 +2,19 @@ package com.github.ymatoi.note.firestore
 
 import androidx.lifecycle.MutableLiveData
 import com.github.ymatoi.note.database.Note
+import com.github.ymatoi.note.database.NoteDao
 import com.github.ymatoi.note.util.combine
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
 
-class NoteFirestoreDao @Inject constructor() {
+class NoteFirestoreDao @Inject constructor() : NoteDao {
     private val currentUser get() = Firebase.auth.currentUser
     private val collection get() = currentUser?.let { FirebaseFirestore.getInstance().collection("/users/${it.uid}/notes") }
 
     private val _notes = MutableLiveData<List<Note>>()
-    fun getAll() = _notes.also {
+    override fun getAll() = _notes.also {
         collection?.get()?.addOnSuccessListener {
             val notes = it.toObjects(Note::class.java).sortedBy { it.recordedAt }.reversed()
             _notes.postValue(notes)
@@ -27,11 +28,18 @@ class NoteFirestoreDao @Inject constructor() {
             else -> it.text.contains(Regex.fromLiteral(query))
         } }?.sortedBy { it.recordedAt }?.reversed()
     }
-    fun findByText(query: String) = _searchedText.also {
+    override fun findByText(query: String) = _searchedText.also {
         _query.postValue(query)
     }
 
-    fun insert(note: Note) = collection?.document(note.uuid)?.set(note)
-    fun update(note: Note) = collection?.document(note.uuid)?.set(note)
-    fun delete(note: Note) = collection?.document(note.uuid)?.delete()
+    override suspend fun insert(note: Note) {
+        collection?.document(note.uuid)?.set(note)
+    }
+
+    override suspend fun update(note: Note) {
+        collection?.document(note.uuid)?.set(note)
+    }
+    override suspend fun delete(note: Note) {
+        collection?.document(note.uuid)?.delete()
+    }
 }
