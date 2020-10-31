@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.mainFragment -> bottomNavigationView.visibility = View.VISIBLE
-                else -> bottomNavigationView.visibility = View.GONE
+            bottomNavigationView.visibility = when (destination.id) {
+                R.id.mainFragment -> View.VISIBLE
+                else -> View.GONE
             }
         }
     }
