@@ -48,7 +48,6 @@ class EditViewModel @ViewModelInject constructor(
     }
 
     fun editMode(note: Note?) {
-        this.note.postValue(note)
         note ?: return
         recordedAt.postValue(note.recordedAt)
         text.postValue(note.text)
