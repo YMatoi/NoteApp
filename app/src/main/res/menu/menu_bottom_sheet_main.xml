@@ -3,5 +3,9 @@
     <item
         android:id="@+id/mainFragment"
         android:icon="@drawable/ic_baseline_notes_24"
-        android:title="notes"/>
+        android:title="notes" />
+    <item
+        android:id="@+id/monthlyFragment"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="monthly" />
 </menu>

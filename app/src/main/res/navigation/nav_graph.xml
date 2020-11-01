@@ -31,4 +31,8 @@
         android:id="@+id/accountFragment"
         android:name="com.github.ymatoi.note.ui.AccountFragment"
         android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/monthlyFragment"
+        android:name="com.github.ymatoi.note.ui.MonthlyFragment"
+        android:label="MonthlyFragment" />
 </navigation>

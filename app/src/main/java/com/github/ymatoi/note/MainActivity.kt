@@ -3,6 +3,7 @@ package com.github.ymatoi.note
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,10 +21,17 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            bottomNavigationView.visibility = when (destination.id) {
-                R.id.mainFragment -> View.VISIBLE
-                else -> View.GONE
+            bottomNavigationView.visibility = when (bottomNavigationView.isBottomMenu(destination.id)) {
+                true -> View.VISIBLE
+                false -> View.GONE
             }
+        }
+    }
+
+    private fun BottomNavigationView.isBottomMenu(fragmentId: Int) = this.menu.children.firstOrNull { it.itemId == fragmentId }.let {
+        when (it) {
+            null -> false
+            else -> true
         }
     }
 }
