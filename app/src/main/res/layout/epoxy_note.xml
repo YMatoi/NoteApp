@@ -30,22 +30,25 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/created_at"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{createdAt}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
                 android:id="@+id/body"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:text="@{text}"
-                app:layout_constraintTop_toBottomOf="@id/created_at"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0"/>
+
+            <TextView
+                android:id="@+id/created_at"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{createdAt}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:textAlignment="textEnd"
+                app:layout_constraintTop_toBottomOf="@id/body"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
