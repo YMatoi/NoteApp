@@ -29,13 +29,12 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <com.github.ymatoi.note.util.AccountImage
                     android:id="@+id/account"
                     android:layout_width="@dimen/account_image_size"
                     android:layout_height="@dimen/account_image_size"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/margin_s"
-                    android:src="@drawable/ic_baseline_account_circle_24"/>
+                    android:layout_marginEnd="@dimen/margin_s"/>
             </LinearLayout>
 
         </com.google.android.material.appbar.AppBarLayout>

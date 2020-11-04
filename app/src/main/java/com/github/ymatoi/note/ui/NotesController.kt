@@ -20,7 +20,7 @@ class NotesController(private val listener: Listener) : EpoxyController() {
 
     override fun buildModels() {
         val groupedNotes = notes.groupBy { it.recordedAt.dateText() }
-        groupedNotes.forEach {(key, notes) ->
+        groupedNotes.forEach { (key, notes) ->
             dateText {
                 id(key)
                 dateText(key)

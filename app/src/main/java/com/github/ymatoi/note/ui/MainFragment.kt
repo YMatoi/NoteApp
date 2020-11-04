@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
-import com.github.ymatoi.note.util.setAccountImage
-import com.github.ymatoi.note.util.setAccountImageClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,13 +38,6 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener,
         }
 
         binding.searchBar.setOnQueryTextListener(this)
-
-        binding.account.setAccountImageClickListener()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.account.setAccountImage(requireContext())
     }
 
     override fun onNoteClick(note: Note) = View.OnClickListener {
