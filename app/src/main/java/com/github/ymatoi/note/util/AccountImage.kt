@@ -2,22 +2,24 @@ package com.github.ymatoi.note.util
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.navigation.findNavController
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.github.ymatoi.note.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import de.hdodenhof.circleimageview.CircleImageView
 
-class AccountImage(context: Context, attr: AttributeSet) : CircleImageView(context, attr) {
+class AccountImage(context: Context, attr: AttributeSet) : AppCompatImageView(context, attr) {
     private val currentUser = Firebase.auth.currentUser
 
     init {
         if (currentUser == null) {
-            load(ContextCompat.getDrawable(context, R.drawable.ic_baseline_account_circle_24))
+            load(R.drawable.ic_baseline_account_circle_24)
         } else {
-            load(currentUser.photoUrl)
+            load(currentUser.photoUrl) {
+                transformations(CircleCropTransformation())
+            }
         }
 
         setOnClickListener {
