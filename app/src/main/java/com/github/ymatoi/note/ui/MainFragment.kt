@@ -15,13 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener, SearchView.OnQueryTextListener {
     private val viewModel: MainViewModel by viewModels()
-    private var _binding: FragmentMainBinding? = null
-    private val binding get() = _binding!!
-    private val controller = NotesController(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentMainBinding.bind(view)
+        val binding = FragmentMainBinding.bind(view)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -29,6 +26,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener,
             findNavController().navigate(R.id.editFragment)
         }
 
+        val controller = NotesController(this)
         binding.notes.adapter = controller.adapter
         binding.notes.layoutManager = StickyHeaderLinearLayoutManager(requireContext())
 
@@ -49,11 +47,6 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener,
     override fun onNoteClick(note: Note) = View.OnClickListener {
         val action = MainFragmentDirections.actionMainFragmentToEditFragment(note)
         findNavController().navigate(action)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
