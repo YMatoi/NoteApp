@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.databinding.FragmentMonthlyBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,13 @@ class MonthlyFragment : Fragment(R.layout.fragment_monthly) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMonthlyBinding.bind(view)
         binding.viewModel = viewModel
+
+        binding.account.setOnClickListener { _, isSignIn ->
+            when (isSignIn) {
+                true -> findNavController().navigate(R.id.accountFragment)
+                else -> findNavController().navigate(R.id.signInFragment)
+            }
+        }
     }
 
     override fun onDestroyView() {

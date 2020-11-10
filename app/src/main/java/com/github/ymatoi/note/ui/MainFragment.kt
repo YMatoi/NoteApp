@@ -38,6 +38,13 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener,
         }
 
         binding.searchBar.setOnQueryTextListener(this)
+
+        binding.account.setOnClickListener { _, isSignIn ->
+            when (isSignIn) {
+                true -> findNavController().navigate(R.id.accountFragment)
+                else -> findNavController().navigate(R.id.signInFragment)
+            }
+        }
     }
 
     override fun onNoteClick(note: Note) = View.OnClickListener {

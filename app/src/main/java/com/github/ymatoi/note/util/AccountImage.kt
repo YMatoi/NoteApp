@@ -2,8 +2,8 @@ package com.github.ymatoi.note.util
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.navigation.findNavController
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.github.ymatoi.note.R
@@ -21,13 +21,11 @@ class AccountImage(context: Context, attr: AttributeSet) : AppCompatImageView(co
                 transformations(CircleCropTransformation())
             }
         }
+    }
 
-        setOnClickListener {
-            if (currentUser == null) {
-                findNavController().navigate(R.id.signInFragment)
-            } else {
-                findNavController().navigate(R.id.accountFragment)
-            }
+    fun setOnClickListener(onClickListener: (view: View, isSignIn: Boolean) -> Unit) {
+        super.setOnClickListener {
+            onClickListener(it, currentUser != null)
         }
     }
 }
