@@ -10,8 +10,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_l"
-        android:layout_marginEnd="@dimen/margin_l"
+        android:paddingStart="@dimen/padding_l"
+        android:paddingEnd="@dimen/padding_l"
+        android:elevation="@dimen/elevation_m"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:text="@{dateText}" />
 </layout>

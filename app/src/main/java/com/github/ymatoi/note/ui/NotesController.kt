@@ -2,6 +2,7 @@ package com.github.ymatoi.note.ui
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyController
+import com.github.ymatoi.note.DateTextBindingModel_
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.dateText
 import com.github.ymatoi.note.note
@@ -35,5 +36,9 @@ class NotesController(private val listener: Listener) : EpoxyController() {
                 }
             }
         }
+    }
+
+    override fun isStickyHeader(position: Int): Boolean {
+        return adapter.getModelAtPosition(position)::class == DateTextBindingModel_::class
     }
 }

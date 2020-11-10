@@ -6,8 +6,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.epoxy.stickyheader.StickyHeaderLinearLayoutManager
 import com.github.ymatoi.note.R
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.databinding.FragmentMainBinding
@@ -31,7 +30,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener,
         }
 
         binding.notes.adapter = controller.adapter
-        binding.notes.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding.notes.layoutManager = StickyHeaderLinearLayoutManager(requireContext())
 
         viewModel.notes.observe(viewLifecycleOwner) {
             controller.notes = it
