@@ -1,4 +1,4 @@
-package com.github.ymatoi.note.ui
+package com.github.ymatoi.note.ui.edit
 
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject

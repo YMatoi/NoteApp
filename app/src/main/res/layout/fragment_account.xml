@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.github.ymatoi.note.ui.AccountViewModel" />
+            type="com.github.ymatoi.note.ui.account.AccountViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

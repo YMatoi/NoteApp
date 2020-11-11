@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.github.ymatoi.note.ui.MonthlyViewModel" />
+            type="com.github.ymatoi.note.ui.monthly.MonthlyViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -27,7 +27,7 @@
                     android:layout_weight="1"
                     android:layout_height="0dp" />
 
-                <com.github.ymatoi.note.util.AccountImage
+                <com.github.ymatoi.note.ui.view.AccountImage
                     android:id="@+id/account"
                     android:layout_width="@dimen/account_image_size"
                     android:layout_height="@dimen/account_image_size"

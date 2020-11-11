@@ -1,4 +1,4 @@
-package com.github.ymatoi.note.ui
+package com.github.ymatoi.note.ui.main
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyController

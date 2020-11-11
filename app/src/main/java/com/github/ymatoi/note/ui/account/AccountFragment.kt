@@ -1,4 +1,4 @@
-package com.github.ymatoi.note.ui
+package com.github.ymatoi.note.ui.account
 
 import android.os.Bundle
 import android.view.View

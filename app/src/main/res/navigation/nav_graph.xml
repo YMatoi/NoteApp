@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.github.ymatoi.note.ui.MainFragment"
+        android:name="com.github.ymatoi.note.ui.main.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_editFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.github.ymatoi.note.ui.EditFragment"
+        android:name="com.github.ymatoi.note.ui.edit.EditFragment"
         android:label="EditFragment" >
         <argument
             android:name="note"
@@ -25,14 +25,14 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.github.ymatoi.note.ui.SignInFragment"
+        android:name="com.github.ymatoi.note.ui.signin.SignInFragment"
         android:label="SignInFragment" />
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.github.ymatoi.note.ui.AccountFragment"
+        android:name="com.github.ymatoi.note.ui.account.AccountFragment"
         android:label="AccountFragment" />
     <fragment
         android:id="@+id/monthlyFragment"
-        android:name="com.github.ymatoi.note.ui.MonthlyFragment"
+        android:name="com.github.ymatoi.note.ui.monthly.MonthlyFragment"
         android:label="MonthlyFragment" />
 </navigation>

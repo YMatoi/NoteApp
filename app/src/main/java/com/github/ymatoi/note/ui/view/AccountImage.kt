@@ -1,4 +1,4 @@
-package com.github.ymatoi.note.util
+package com.github.ymatoi.note.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
