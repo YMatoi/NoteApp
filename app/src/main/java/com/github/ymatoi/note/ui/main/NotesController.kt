@@ -1,27 +1,21 @@
 package com.github.ymatoi.note.ui.main
 
 import android.view.View
-import com.airbnb.epoxy.EpoxyController
+import com.airbnb.epoxy.TypedEpoxyController
 import com.github.ymatoi.note.DateTextBindingModel_
 import com.github.ymatoi.note.database.Note
 import com.github.ymatoi.note.dateText
 import com.github.ymatoi.note.note
 import com.github.ymatoi.note.util.dateText
 
-class NotesController(private val listener: Listener) : EpoxyController() {
+class NotesController(private val listener: Listener) : TypedEpoxyController<List<Note>?>() {
     interface Listener {
         fun onNoteClick(note: Note): View.OnClickListener
     }
 
-    var notes: List<Note> = emptyList()
-        set(value) {
-            field = value
-            requestModelBuild()
-        }
-
-    override fun buildModels() {
-        val groupedNotes = notes.groupBy { it.recordedAt.dateText() }
-        groupedNotes.forEach { (key, notes) ->
+    override fun buildModels(notes: List<Note>?) {
+        val groupedNotes = notes?.groupBy { it.recordedAt.dateText() }
+        groupedNotes?.forEach { (key, notes) ->
             dateText {
                 id(key)
                 dateText(key)
@@ -39,6 +33,6 @@ class NotesController(private val listener: Listener) : EpoxyController() {
     }
 
     override fun isStickyHeader(position: Int): Boolean {
-        return adapter.getModelAtPosition(position)::class == DateTextBindingModel_::class
+        return adapter.getModelAtPosition(position) is DateTextBindingModel_
     }
 }

@@ -31,7 +31,7 @@ class MainFragment : Fragment(R.layout.fragment_main), NotesController.Listener,
         binding.notes.layoutManager = StickyHeaderLinearLayoutManager(requireContext())
 
         viewModel.notes.observe(viewLifecycleOwner) {
-            controller.notes = it
+            controller.setData(it)
         }
 
         binding.searchBar.setOnQueryTextListener(this)
